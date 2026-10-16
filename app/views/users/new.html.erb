@@ -1,0 +1,15 @@
+<h1>ユーザ登録</h1>
+
+<% if @error %>
+  <p style="color:red;"><%= @error %></p>
+<% end %>
+
+<%= form_with url: users_path, method: :post, data: { turbo: false } do |f| %>
+  <div>ID: <%= f.text_field :uid, value: params[:uid] %></div>
+  <div>PASS: <%= f.password_field :pass %></div>
+  <div>AGE: <%= f.number_field :age, value: params[:age] %></div>
+  <%= f.submit "登録" %>
+<% end %>
+
+<hr>
+<%= link_to "一覧へ戻る", users_path %> | <%= link_to "ログイン画面へ", top_main_path %>
