@@ -6,7 +6,13 @@
 <ul>
   <% @users.each do |u| %>
     <li>
-      <%= u.uid %>
+      <strong><%= u.uid %></strong>
+      <% if u.profile %>
+        ：<%= u.profile.message %>
+      <% else %>
+        ：未登録
+      <% end %>
+      <%= link_to "詳細", user_profile_path(u) %>
       <%= link_to "削除", user_path(u), data: { turbo_method: :delete, turbo_confirm: "本当に削除？" } %>
     </li>
   <% end %>

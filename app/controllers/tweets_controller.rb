@@ -1,6 +1,7 @@
 class TweetsController < ApplicationController
   def index
     @tweets = Tweet.all.order(created_at: :desc)
+    @current_user = User.find_by(uid: session[:login_uid])
   end
 
   def new

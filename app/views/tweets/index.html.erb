@@ -1,7 +1,9 @@
 <h1>つぶやき一覧</h1>
 
 <% if session[:login_uid] %>
-  <p>ログイン中: <%= session[:login_uid] %></p>
+  <p>ログイン中: <%= @current_user&.uid %></p>
+  <%= link_to "マイプロフィール", user_profile_path(@current_user) %> |
+  <%= link_to "ユーザ一覧", users_path %> |
   <%= link_to "ログアウト", top_logout_path %>
 
   <%= form_with url: tweets_path, method: :post do |f| %>
@@ -16,7 +18,13 @@
 
 <% @tweets.each do |e| %>
   <div>
-    <strong><%= e.user&.uid || "unknown" %></strong>:
+    <strong>
+      <% if e.user %>
+        <%= link_to e.user.uid, user_profile_path(e.user) %>
+      <% else %>
+        unknown
+      <% end %>
+    </strong>:
     <%= e.message %>
     <small><%= e.created_at.strftime("%m-%d %H:%M") %></small>
 
@@ -26,7 +34,6 @@
     <% end %>
 
     <small>♥ <%= e.likes.count %></small>
-
     <%= link_to "削除", tweet_path(e), data: { turbo_method: :delete, turbo_confirm: "削除？" } %>
   </div>
 <% end %>
