@@ -1,3 +1,4 @@
+# users\new.html.erb
 <h1>ユーザ登録</h1>
 
 <% if @error %>
@@ -6,7 +7,8 @@
 
 <%= form_with url: users_path, method: :post, data: { turbo: false } do |f| %>
   <div>ID: <%= f.text_field :uid, value: params[:uid] %></div>
-  <div>PASS: <%= f.password_field :pass %></div>
+  <div>パスワード: <%= f.text_field :password %></div>
+  <div>パスワード（確認）: <%= f.text_field :password_confirmation %></div>
   <div>AGE: <%= f.number_field :age, value: params[:age] %></div>
   <%= f.submit "登録" %>
 <% end %>

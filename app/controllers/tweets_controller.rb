@@ -1,7 +1,6 @@
 class TweetsController < ApplicationController
   def index
     @tweets = Tweet.all.order(created_at: :desc)
-    @current_user = User.find_by(uid: session[:login_uid])
   end
 
   def new
@@ -9,11 +8,10 @@ class TweetsController < ApplicationController
   end
 
   def create
-    user = User.find_by(uid: session[:login_uid])
     if user.nil?
       redirect_to top_main_path and return
     end
-    @tweet = Tweet.new(message: params[:message], user_id: user.id)
+    @tweet = Tweet.new(message: params[:message], user_id: current_user.id)
     if @tweet.save
       redirect_to tweets_path
     else

@@ -1,3 +1,4 @@
+# users\index.html.erb
 <h1>ユーザ一覧</h1>
 
 <%= link_to "ユーザ登録", new_user_path %> |
@@ -12,6 +13,7 @@
       <% else %>
         ：未登録
       <% end %>
+      <small>password_digest: <%= u.password_digest %></small>
       <%= link_to "詳細", user_profile_path(u) %>
       <%= link_to "削除", user_path(u), data: { turbo_method: :delete, turbo_confirm: "本当に削除？" } %>
     </li>

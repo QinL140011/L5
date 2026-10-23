@@ -8,7 +8,12 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(uid: params[:uid], pass: BCrypt::Password.create(params[:pass]), age:  params[:age])
+    @user = User.new(
+      uid: params[:uid], 
+      password: params[:password], 
+      password_confirmation: params[:password_confirmation], 
+      age:  params[:age]
+    )
     if @user.save
       redirect_to users_path, notice: "登録しました"
     else

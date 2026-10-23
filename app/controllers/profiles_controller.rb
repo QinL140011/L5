@@ -12,12 +12,12 @@ class ProfilesController < ApplicationController
   end
 
   def new
-    @user = User.find_by(uid: session[:login_uid])
+    @user = current_user
     @profile = @user.profile || Profile.new
   end
 
   def create
-    @user = User.find_by(uid: session[:login_uid])
+    @user = current_user
     @profile = Profile.new(profile_params)
     @profile.user = @user
     if @profile.save
@@ -53,6 +53,6 @@ class ProfilesController < ApplicationController
   end
 
   def require_login
-    redirect_to top_main_path unless session[:login_uid]
+    redirect_to top_main_path unless current_user
   end
 end
