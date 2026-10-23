@@ -1,4 +1,3 @@
-# app/controllers/profiles_controller.rb
 class ProfilesController < ApplicationController
   before_action :require_login
   before_action :set_user, only: [:show, :edit, :update]
