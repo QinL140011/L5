@@ -8,14 +8,14 @@ class TweetsController < ApplicationController
   end
 
   def create
-    if user.nil?
+    if current_user.nil?
       redirect_to top_main_path and return
     end
     @tweet = Tweet.new(message: params[:message], user_id: current_user.id)
     if @tweet.save
       redirect_to tweets_path
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
