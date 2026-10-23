@@ -18,7 +18,7 @@ class UsersController < ApplicationController
       redirect_to users_path, notice: "登録しました"
     else
        @error = @user.errors.full_messages.join(", ")
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
